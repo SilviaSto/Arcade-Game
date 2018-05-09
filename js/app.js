@@ -26,6 +26,9 @@
    // all computers.
    update(dt) {
      this.x += this.speed * (Math.random() * dt);
+     if (this.x > 505) {
+       this.x = -100;
+     }
    }
  };
 
@@ -36,18 +39,17 @@
    update() {
 
    }
-   /*handleInput();*/
+   handleInput() {
+
+   }
  };
-
-
 
  // instantiate objects.
  // Place all enemy objects in an array called allEnemies
  // Place the player object in a variable called player
-
  let bugA = new Enemy('images/enemy-bug.png', -10, 50, 280);
- let bugB = new Enemy('images/enemy-bug.png', -50, 140, 120);
- let bugC = new Enemy('images/enemy-bug.png', -30, 230, 200);
+ let bugB = new Enemy('images/enemy-bug.png', -50, 140, 180);
+ let bugC = new Enemy('images/enemy-bug.png', -30, 230, 250);
  const allEnemies = [bugA, bugB, bugC];
  let player = new Warrior('images/char-cat-girl.png', 200, 380);
 
