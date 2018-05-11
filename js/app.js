@@ -1,5 +1,5 @@
 /************Superclass******************/
-//defines common properties and method
+//defines common properties and methods
 //for all players on the game board
 class Players {
   constructor(sprite, x, y) {
@@ -7,7 +7,7 @@ class Players {
     this.y = y;
     this.sprite = sprite;
   }
-  // Draw the players on the screen
+  // Draw all players on the screen
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
@@ -15,7 +15,7 @@ class Players {
 
 /**************Subclasses*****************/
 //inherit from parent class
-//and add unique properties and method
+//and add unique properties and methods
 class Enemy extends Players {
   constructor(sprite, x, y, speed) {
     super(sprite, x, y, speed);
@@ -29,18 +29,34 @@ class Enemy extends Players {
     if (this.x > 505) {
       this.x = -100;
     }
+    /*
+    simple collision detection from
+    https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    */
+    if (this.x < player.x + 50 &&
+      this.x + 50 > player.x &&
+      this.y < player.y + 60 &&
+      this.y + 60 > player.y) {
+      player.x = 200;
+      player.y = 380;
+    }
   }
-};
+}
+
+
 
 class Warrior extends Players {
   constructor(sprite, x, y) {
     super(sprite, x, y);
   }
   update() {
+    if (this.y < 30) {
+      console.log('hi');
+    }
 
   }
   handleInput(key) {
-    if ((this.x > -10 && this.x < 450) && (this.y > 0 && this.y < 400)) {
+    if ((this.x > -10 && this.x < 450) && (this.y > 30 && this.y < 400)) {
       switch (key) {
         case 'left':
           this.x -= 50;
@@ -60,17 +76,19 @@ class Warrior extends Players {
       this.y = 380;
     }
   }
-};
+}
+
 
 // instantiate objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 let player = new Warrior('images/char-cat-girl.png', 200, 380);
 let bugA = new Enemy('images/enemy-bug.png', -40, 50, 350);
-let bugB = new Enemy('images/enemy-bug.png', -50, 140, 250);
-let bugC = new Enemy('images/enemy-bug.png', -30, 230, 250);
-let bugD = new Enemy('images/enemy-bug.png', -300, 230, 250);
-const allEnemies = [bugA, bugB, bugC, bugD];
+let bugB = new Enemy('images/enemy-bug.png', -40, 80, 550);
+let bugC = new Enemy('images/enemy-bug.png', -50, 140, 250);
+let bugD = new Enemy('images/enemy-bug.png', -30, 230, 250);
+let bugE = new Enemy('images/enemy-bug.png', -300, 230, 200);
+const allEnemies = [bugA, bugB, bugC, bugD, bugE];
 
 
 
