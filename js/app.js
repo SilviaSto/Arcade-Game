@@ -1,3 +1,9 @@
+/******Lives******/
+let hearts = document.querySelectorAll('.hearts li');
+let heartCounter = [...hearts];
+
+
+
 /************Superclass******************/
 //defines common properties and methods
 //for all players on the game board
@@ -29,31 +35,44 @@ class Enemy extends Players {
     if (this.x > 505) {
       this.x = -100;
     }
+
     /*
     simple collision detection from
     https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     */
-    if (this.x < player.x + 50 &&
-      this.x + 50 > player.x &&
-      this.y < player.y + 60 &&
-      this.y + 60 > player.y) {
+    if (player.lives > 0 && player.lives <= 5) {
+      for (hearts of heartCounter) {
+        if (this.x < player.x + 50 &&
+          this.x + 50 > player.x &&
+          this.y < player.y + 60 &&
+          this.y + 60 > player.y) {
+          player.x = 200;
+          player.y = 380;
+          player.lives--;
+          hearts.classList.add('hide');
+          console.log(hearts);
+        }
+      }
+
+    } else {
       player.x = 200;
       player.y = 380;
     }
+
   }
 }
 
 
 
 class Warrior extends Players {
-  constructor(sprite, x, y) {
-    super(sprite, x, y);
+  constructor(sprite, x, y, lives) {
+    super(sprite, x, y, lives);
+    this.lives = lives;
   }
-  update() {
+  update(dt) {
     if (this.y < 30) {
       console.log('hi');
     }
-
   }
   handleInput(key) {
     if ((this.x > -10 && this.x < 450) && (this.y > 30 && this.y < 400)) {
@@ -79,10 +98,13 @@ class Warrior extends Players {
 }
 
 
+
+
+
 // instantiate objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-let player = new Warrior('images/char-cat-girl.png', 200, 380);
+let player = new Warrior('images/char-cat-girl.png', 200, 380, 5);
 let bugA = new Enemy('images/enemy-bug.png', -40, 50, 350);
 let bugB = new Enemy('images/enemy-bug.png', -40, 80, 550);
 let bugC = new Enemy('images/enemy-bug.png', -50, 140, 250);
