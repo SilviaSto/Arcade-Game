@@ -2,8 +2,6 @@
 let hearts = document.querySelectorAll('.hearts li');
 let heartCounter = [...hearts];
 
-
-
 /************Superclass******************/
 //defines common properties and methods
 //for all players on the game board
@@ -46,19 +44,14 @@ class Enemy extends Players {
           this.x + 50 > player.x &&
           this.y < player.y + 60 &&
           this.y + 60 > player.y) {
-          player.x = 200;
-          player.y = 380;
           player.lives--;
-          hearts.classList.add('hide');
-          console.log(hearts);
+          player.position();
+          player.life();
         }
       }
-
     } else {
-      player.x = 200;
-      player.y = 380;
+      player.position();
     }
-
   }
 }
 
@@ -95,11 +88,17 @@ class Warrior extends Players {
       this.y = 380;
     }
   }
+  position() {
+    player.x = 200;
+    player.y = 380;
+  }
+  life() {
+    hearts.classList.add('hide');
+    heartCounter.shift();
+    console.log(hearts);
+    console.log(heartCounter);
+  }
 }
-
-
-
-
 
 // instantiate objects.
 // Place all enemy objects in an array called allEnemies
@@ -111,8 +110,6 @@ let bugC = new Enemy('images/enemy-bug.png', -50, 140, 250);
 let bugD = new Enemy('images/enemy-bug.png', -30, 230, 250);
 let bugE = new Enemy('images/enemy-bug.png', -300, 230, 200);
 const allEnemies = [bugA, bugB, bugC, bugD, bugE];
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
