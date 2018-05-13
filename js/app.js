@@ -1,11 +1,13 @@
-/******Lives******/
+/******Lives and Treasure******/
 let hearts = document.querySelectorAll('.hearts li');
 let heartCounter = [...hearts];
+let elements = document.querySelectorAll('.treasures li');
+let elementCounter = [...elements];
 
 /************Superclass******************/
 //defines common properties and methods
-//for all players on the game board
-class Players {
+//for all characters on the game board
+class Characters {
   constructor(sprite, x, y) {
     this.x = x;
     this.y = y;
@@ -20,7 +22,7 @@ class Players {
 /**************Subclasses*****************/
 //inherit from parent class
 //and add unique properties and methods
-class Enemy extends Players {
+class Enemy extends Characters {
   constructor(sprite, x, y, speed) {
     super(sprite, x, y, speed);
     this.speed = speed;
@@ -33,40 +35,63 @@ class Enemy extends Players {
     if (this.x > 505) {
       this.x = -100;
     }
-
-    /*
-    simple collision detection from
-    https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-    */
     if (player.lives > 0 && player.lives <= 5) {
       for (hearts of heartCounter) {
+        /*
+        simple collision detection from
+        https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+        */
         if (this.x < player.x + 50 &&
           this.x + 50 > player.x &&
           this.y < player.y + 60 &&
           this.y + 60 > player.y) {
           player.lives--;
-          player.position();
           player.life();
+          player.position();
         }
       }
     } else {
       player.position();
+      player.sprite = 'images/enemy-bug.png';
     }
   }
 }
 
-
-
-class Warrior extends Players {
-  constructor(sprite, x, y, lives) {
-    super(sprite, x, y, lives);
+class Girl extends Characters {
+  constructor(sprite, x, y, lives, elements) {
+    super(sprite, x, y, lives, elements);
     this.lives = lives;
+    this.elements = elements;
   }
-  update(dt) {
-    if (this.y < 30) {
-      console.log('hi');
+  update() {
+    if (this.elements > 0 && this.elements <= 5) {
+      for (elements of elementCounter) {
+        if (this.y <= 30) {
+          this.treasure();
+          this.elements--;
+          player.position();
+        }
+      }
+    }
+    if (this.elements <= 0) {
+      player.position();
     }
   }
+
+  position() {
+    this.x = 200;
+    this.y = 380;
+  }
+  treasure() {
+    elements.classList.remove('hiden');
+    elementCounter.shift();
+    console.log(elementCounter);
+  }
+  life() {
+    hearts.classList.add('hide');
+    heartCounter.shift();
+  }
+
   handleInput(key) {
     if ((this.x > -10 && this.x < 450) && (this.y > 30 && this.y < 400)) {
       switch (key) {
@@ -84,26 +109,15 @@ class Warrior extends Players {
           break;
       }
     } else {
-      this.x = 200;
-      this.y = 380;
+      this.position();
     }
-  }
-  position() {
-    player.x = 200;
-    player.y = 380;
-  }
-  life() {
-    hearts.classList.add('hide');
-    heartCounter.shift();
-    console.log(hearts);
-    console.log(heartCounter);
   }
 }
 
 // instantiate objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-let player = new Warrior('images/char-cat-girl.png', 200, 380, 5);
+let player = new Girl('images/char-cat-girl.png', 200, 380, 5, 5);
 let bugA = new Enemy('images/enemy-bug.png', -40, 50, 350);
 let bugB = new Enemy('images/enemy-bug.png', -40, 80, 550);
 let bugC = new Enemy('images/enemy-bug.png', -50, 140, 250);
