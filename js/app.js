@@ -69,12 +69,13 @@ class Girl extends Characters {
         if (this.y <= 30) {
           this.treasure();
           this.elements--;
-          player.position();
+          this.position();
         }
       }
     }
     if (this.elements <= 0) {
-      player.position();
+      this.position();
+      this.sprite = 'images/char-princess-girl.png';
     }
   }
 
