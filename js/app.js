@@ -76,6 +76,8 @@ class Girl extends Characters {
     if (this.elements <= 0) {
       this.position();
       this.sprite = 'images/char-princess-girl.png';
+      this.y = 150;
+      bugC.x = -100;
     }
   }
 
