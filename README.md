@@ -14,7 +14,7 @@ Good luck and happy debugging :)
 ## Running the Game
 
 ### Click here:
-https://github.com/SilviaSto/The-Little-Debugger-girl
+https://silviasto.github.io/The-Little-Debugger-girl/
 
 or
 ### Clone the repository/Download files
