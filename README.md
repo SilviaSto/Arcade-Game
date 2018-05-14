@@ -14,7 +14,7 @@ Good luck and happy debugging :)
 ## Running the Game
 
 ### Click here:
-https://silviasto.github.io/Arcade-Game/
+https://github.com/SilviaSto/The-Little-Debugger-girl
 
 or
 ### Clone the repository/Download files
