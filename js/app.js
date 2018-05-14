@@ -1,3 +1,6 @@
+'use strict;'
+
+
 /******Lives and Treasure******/
 let hearts = document.querySelectorAll('.hearts li');
 let heartCounter = [...hearts];
@@ -86,7 +89,7 @@ class Girl extends Characters {
     this.y = 380;
   }
   treasure() {
-    elements.classList.remove('hiden');
+    elements.classList.remove('hidden');
     elementCounter.shift();
     console.log(elementCounter);
   }
