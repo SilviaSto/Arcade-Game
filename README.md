@@ -13,10 +13,10 @@ Good luck and happy debugging :)
 
 ## Running the Game
 
-Click here:
+### Click here:
 https://silviasto.github.io/Arcade-Game/
 
 or
-Clone the repository/Download files
-After downloading/cloning all files open index.html into the browser.
+### Clone the repository/Download files
+After downloading/cloning open index.html into the browser.
 Play again by reloading the page.
